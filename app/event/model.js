@@ -37,6 +37,10 @@ const eventSchema = new mongoose.Schema({
   confirmedDate: {
     type: Date,
   },
+  proposedLocation: {
+    postalCode: String,
+    streetName: String,
+  },
 });
 
 const Event = mongoose.model("Event", eventSchema);
