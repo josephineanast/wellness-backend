@@ -48,8 +48,8 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+const login = async (req, res, next) => {
+  passport.authenticate("local", async (err, user, info) => {
     if (err) {
       return next(err);
     }
@@ -62,6 +62,8 @@ const login = (req, res, next) => {
     }
 
     const token = jwt.sign(user, config.secretkey);
+
+    await User.findByIdAndUpdate(user._id, { $push: { token: token } });
 
     return res.json({
       message: "Login Successful",

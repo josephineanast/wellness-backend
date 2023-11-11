@@ -12,14 +12,14 @@ function decodeToken() {
 
       req.user = jwt.verify(token, config.secretkey);
 
-      // let user = await User.findOne({ token: { $in: [token] } });
+      let user = await User.findOne({ token: { $in: [token] } });
 
-      // if (!user) {
-      //   return res.json({
-      //     error: 1,
-      //     message: "Token Expired",
-      //   });
-      // }
+      if (!user) {
+        return res.json({
+          error: 1,
+          message: "Token Expired",
+        });
+      }
     } catch (err) {
       if (err && err.name === "JsonWebTokenError") {
         return res.json({

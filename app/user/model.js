@@ -25,6 +25,7 @@ const userSchemas = Schema({
     enum: ["company", "vendor"],
     default: "company",
   },
+  token: [String],
 });
 
 userSchemas.path("email").validate(

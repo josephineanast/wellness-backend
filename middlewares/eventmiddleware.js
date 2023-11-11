@@ -1,8 +1,12 @@
 const Event = require("../app/event/model.js");
 
 function eventAuthorization(req, res, next) {
-  const userRole = req.user.role;
+  const userRole = req.user && req.user.role;
   const eventId = req.params.eventId;
+
+  if (!eventId) {
+    return res.status(400).json({ error: "Event ID is missing" });
+  }
 
   Event.findById(eventId)
     .populate("company vendor")

@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const eventController = require("./controller.js");
 const eventAuthorization = require("../../middlewares/eventmiddleware.js");
+const { decodeToken } = require("../../middlewares/authmiddleware.js");
+
+router.use(decodeToken());
 
 router.post("/create", eventAuthorization, eventController.createEvent);
 router.get("/:eventId", eventAuthorization, eventController.getEvent);
