@@ -61,18 +61,11 @@ const login = (req, res, next) => {
       });
     }
 
-    const userWithoutPassword = {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    };
-
-    const token = jwt.sign(userWithoutPassword, config.secretkey);
+    const token = jwt.sign(user, config.secretkey);
 
     return res.json({
       message: "Login Successful",
-      user: userWithoutPassword,
+      user: user,
       token,
     });
   })(req, res, next);
