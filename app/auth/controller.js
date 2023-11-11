@@ -13,7 +13,7 @@ const localStrategy = async (email, password, done) => {
       return done(null, false, { message: "Incorrect email or password" });
     }
 
-    if (bcrypt.compareSync(password, user.password)) {
+    if (password === user.password) {
       const userWithoutPassword = {
         _id: user._id,
         name: user.name,
@@ -61,25 +61,19 @@ const login = (req, res, next) => {
       });
     }
 
-    req.login(user, (err) => {
-      if (err) {
-        return next(err);
-      }
+    const userWithoutPassword = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
 
-      const userWithoutPassword = {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      };
+    const token = jwt.sign(userWithoutPassword, config.secretkey);
 
-      const token = jwt.sign(userWithoutPassword, config.secretkey);
-
-      return res.json({
-        message: "Login Successful",
-        user: userWithoutPassword,
-        token,
-      });
+    return res.json({
+      message: "Login Successful",
+      user: userWithoutPassword,
+      token,
     });
   })(req, res, next);
 };

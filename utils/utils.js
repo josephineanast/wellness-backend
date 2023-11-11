@@ -1,10 +1,7 @@
 const { AsyncAbility, AbilityBuilder } = require("@casl/ability");
 
 function getToken(req) {
-  let token = req.headers.authorization
-    ? req.headers.authorization.replace("Bearer ", "")
-    : null;
-
+  let token = req && req.headers ? req.headers.authorization : null;
   return token && token.length ? token : null;
 }
 
