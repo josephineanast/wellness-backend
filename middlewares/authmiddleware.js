@@ -15,7 +15,7 @@ function decodeToken() {
       let user = await User.findOne({ token: { $in: [token] } });
 
       if (!user) {
-        return res.json({
+        res.json({
           error: 1,
           message: "Token Expired",
         });

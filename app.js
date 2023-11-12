@@ -23,7 +23,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/auth", authRoute);
-app.use("/api/events", eventAuthorization);
 app.use("/api/events", eventRoute);
 
 app.use("/", function (req, res) {
