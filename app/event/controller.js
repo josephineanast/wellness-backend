@@ -23,14 +23,21 @@ const getMyEvents = async (req, res) => {
   const userId = req.user._id;
   const userRole = req.user.role;
 
-  const query = {
-    [userRole]: userId,
-  };
+  let query = {};
+
+  if (userRole === "company") {
+    query = { company: userId };
+  } else if (userRole === "vendor") {
+    query = { vendor: userId };
+  } else {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
 
   try {
     const events = await Event.find(query);
     return res.json(events);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };

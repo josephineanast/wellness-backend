@@ -7,8 +7,8 @@ const { decodeToken } = require("../../middlewares/authmiddleware.js");
 router.use(decodeToken());
 
 router.post("/create", eventAuthorization, eventController.createEvent);
-router.get("/:eventId", eventAuthorization, eventController.getEvent);
 router.get("/my-events", eventAuthorization, eventController.getMyEvents);
+router.get("/:eventId", eventAuthorization, eventController.getEvent);
 router.put(
   "/:eventId/approve",
   eventAuthorization,
