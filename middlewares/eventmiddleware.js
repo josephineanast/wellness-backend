@@ -28,7 +28,7 @@ async function eventAuthorization(req, res, next) {
       });
   } else {
     if (req.method === "POST" && req.path === "/create") {
-      if (userRole === "company" || userRole === "vendor") {
+      if (userRole === "company") {
         return next();
       } else {
         return res.status(403).json({ error: "Unauthorized" });
