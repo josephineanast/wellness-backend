@@ -45,7 +45,7 @@ const getMyEvents = async (req, res) => {
 const approveEvent = async (req, res) => {
   const event = req.event;
   event.status = "Approved";
-  event.confirmedDate = new Date();
+  event.confirmedDate = req.body.date;
   await event.save();
   return res.json(event);
 };
