@@ -7,7 +7,7 @@ const cors = require("cors");
 const { decodeToken } = require("./middlewares/authmiddleware.js");
 const authRoute = require("./app/auth/router.js");
 const eventRoute = require("./app/event/router.js");
-const eventAuthorization = require("./middlewares/eventmiddleware");
+const userRoute = require("./app/user/router.js");
 
 var app = express();
 
@@ -23,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/auth", authRoute);
+app.use("/api/users", userRoute);
 app.use("/api/events", eventRoute);
 
 app.use("/", function (req, res) {
