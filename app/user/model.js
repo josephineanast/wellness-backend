@@ -28,8 +28,6 @@ const userSchemas = Schema({
   token: [String],
 });
 
-const User = mongoose.model("User", userSchemas);
-
 userSchemas.path("email").validate(
   function (value) {
     const EMAIL_RE = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -41,8 +39,8 @@ userSchemas.path("email").validate(
 userSchemas.path("email").validate(
   async function (value) {
     try {
-      const user = await User.findOne({ email: value });
-      return !user;
+      const count = await this.model("User").count({ email: value });
+      return !count;
     } catch (err) {
       throw err;
     }
