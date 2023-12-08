@@ -40,7 +40,6 @@ userSchemas.path("email").validate(
   async function (value) {
     try {
       const count = await this.model("User").count({ email: value });
-
       return !count;
     } catch (err) {
       throw err;
